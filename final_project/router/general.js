@@ -5,6 +5,17 @@ let users = require("./auth_users.js").users;
 const public_users = express.Router();
 
 
+const doesExist = (username)=>{
+    let userswithsamename = users.filter((user)=>{
+      return user.username === username
+    });
+    if(userswithsamename.length > 0){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
 public_users.post("/register", (req,res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -46,13 +57,18 @@ public_users.get('/author/:author',function (req, res) {
 // Get all books based on title
 public_users.get('/title/:title',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const title=req.params.title;
+  for(let i=1;i<=10;i++){
+      if(books[i].title===title)
+      return res.send(books[i])
+  }
 });
 
 //  Get book review
 public_users.get('/review/:isbn',function (req, res) {
   //Write your code here
-  return res.status(300).json({message: "Yet to be implemented"});
+  const isbn=req.params.isbn;
+ return res.send(books[isbn].reviews)
 });
 
 module.exports.general = public_users;
