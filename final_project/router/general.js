@@ -71,4 +71,44 @@ public_users.get('/review/:isbn',function (req, res) {
  return res.send(books[isbn].reviews)
 });
 
+//Task10
+function allBooksPromise() {
+    return new Promise((resolve, reject) => {
+    resolve(books);
+    });
+    }
+    allBooksPromise();
+
+//Task11
+function getBooksISBN(isbn) {
+    return new Promise((resolve, reject) => {
+    let isbn = parseInt(isbn);
+    if (books[isbn]) {
+    resolve(books[isbn]);
+    } else {
+    reject({ status: 404, message: "This ISBN ${isbn} was not found" });
+    }
+    })
+    }
+    getBooksISBN(1)
+
+//Task12
+function getByAuthor(author) {
+    return new Promise((resolve, reject) => {
+    let authname = author;
+    if (books[author]) {
+    resolve(books[author]);
+    }
+    })
+    }
+    getByAuthor("Chinua Achebe")
+
+//Task13
+function getByTitle(title) {
+    return new Promise((resolve, reject) => {
+    if (books[title]) {
+    resolve(books[title]);
+    }})}
+    getByTitle("Fairy tales")
+
 module.exports.general = public_users;
